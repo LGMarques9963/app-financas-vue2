@@ -41,7 +41,16 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/RegisterView.vue"),
+      import(/* webpackChunkName: "login" */ "../views/Register.vue"),
+    meta: {
+      public: true,
+    },
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/Register.vue"),
     meta: {
       public: true,
     },
