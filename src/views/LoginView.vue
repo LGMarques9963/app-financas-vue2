@@ -47,14 +47,20 @@
                       <span class="btn-inner--icon"><img
                           src="https://demos.creative-tim.com/argon-design-system-pro/assets/img/icons/common/github.svg"
                           alt="github" /></span>
-                      <span class="btn-inner--text">Github</span>
                     </a>
                     <a href="#" class="btn btn-neutral btn-icon" target="_blank">
                       <span class="btn-inner--icon"><img
                           src="https://demos.creative-tim.com/argon-design-system-pro/assets/img/icons/common/google.svg"
                           alt="google" /></span>
-                      <span class="btn-inner--text">Google</span>
                     </a>
+                    <div id="g_id_onload"
+                      data-client_id="929159617177-thoqb567fjbh3b0anr4op472q4in3v2u.apps.googleusercontent.com"
+                      data-context="signin" data-ux_mode="popup" data-callback="googleLogin" data-auto_prompt="false">
+                    </div>
+
+                    <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_black"
+                      data-text="signin" data-size="medium" data-logo_alignment="left">
+                    </div>
                   </div>
                 </div>
               </v-card>
@@ -63,6 +69,13 @@
         </div>
       </div>
     </section>
+    <v-dialog v-model="errorDialog" max-width="400" transition="dialog-bottom-transition">
+      <v-card class="mx-auto" color="error" dark max-width="400" shaped elevation="10">
+        <v-card-title class="text-h5">
+          {{ errorMessage || "" }}
+        </v-card-title>
+      </v-card>
+    </v-dialog>
   </main>
 </template>
 
@@ -77,6 +90,8 @@ export default {
       },
       loading: false,
       showPassword: false,
+      errorDialog: false,
+      errorMessage: "",
       rules: {
         required: (value) => !!value || "Required.",
         min: (v) => v.length >= 2 || "Min 8 characters",
@@ -89,14 +104,14 @@ export default {
       this.$http
         .post("signin.php", { data: this.user })
         .then((response) => {
-          localStorage.setItem("token", response.data.token);
-          this.$store.commit("setToken", response.data.token);
+          this.$store.dispatch("login", response.data.token);
           this.loading = false;
-          this.$router.push({ name: "Profile" });
+          this.$router.push({ name: "home" });
         })
         .catch((err) => {
           this.loading = false;
-          this.$toast.error(err.response.data.message);
+          this.errorDialog = true;
+          this.errorMessage = err.response.data.message;
         });
     },
   },

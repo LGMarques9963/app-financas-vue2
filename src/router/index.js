@@ -1,14 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
-
+import axios from "axios";
+import http from "@/http";
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "/",
+    redirect: "/login",
   },
   {
     path: "/about",
@@ -23,12 +23,57 @@ const routes = [
     path: "/login",
     name: "login",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
+      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
+    meta: {
+      public: true,
+    },
+  },
+  {
+    path: "/signin",
+    name: "signin",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
+    meta: {
+      public: true,
+    },
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/RegisterView.vue"),
+    meta: {
+      public: true,
+    },
+  },
+  {
+    path: "/home",
+    name: "home",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/HomeView.vue"),
   },
 ];
 
 const router = new VueRouter({
   routes,
+  linkActiveClass: "active",
+});
+
+router.beforeEach((to, from, next) => {
+  const authRequired = !to.meta.public;
+  const token = localStorage.getItem("token");
+  if (authRequired) {
+    http.post("/login.php", { token: token }).then((response) => {
+      if (response.status == 200) {
+        return next();
+      } else {
+        return next({ name: "login" });
+      }
+    }).catch((error) => {
+      return next({ name: "login" });
+    });
+  }
+  next();
 });
 
 export default router;
