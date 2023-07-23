@@ -7,10 +7,18 @@ export default new Vuex.Store({
   state: {
     token: localStorage.getItem('token') || '',
     userLoggedIn: false,
+    drawer: true,
+    user: {}
   },
   getters: {
     userLoggedIn: state => {
       return state.userLoggedIn;
+    },
+    drawer: state => {
+      return state.drawer;
+    },
+    user: state => {
+      return state.user;
     }
   },
   mutations: {
@@ -19,6 +27,12 @@ export default new Vuex.Store({
     },
     setUserLoggedIn(state, userLoggedIn) {
       state.userLoggedIn = userLoggedIn
+    },
+    toggleDrawer(state) {
+      state.drawer = !state.drawer
+    },
+    setUser(state, user) {
+      state.user = user
     }
   },
   actions: {
@@ -31,6 +45,12 @@ export default new Vuex.Store({
       localStorage.removeItem("token");
       commit('setToken', '')
       commit('setUserLoggedIn', false)
+    },
+    toggleDrawer({ commit }) {
+      commit('toggleDrawer')
+    },
+    setUser({ commit }, user) {
+      commit('setUser', user)
     }
   },
   modules: {},

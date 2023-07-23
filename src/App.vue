@@ -1,32 +1,13 @@
 <template>
   <v-app>
-    <v-app-bar v-if="this.userLoggedIn" app color="primary" dark>
-
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <div class="d-flex align-center">
-        <v-img alt="Vuetify Logo" class="shrink mr-2" contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40" />
-
-        <v-img alt="Vuetify Name" class="shrink mt-1 hidden-sm-and-down" contain min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png" width="100" />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn @click.prevent="logout" url="/login" text>
-        <span class="mr-2">Logout</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <app-bar v-if="this.userLoggedIn" />
     <v-main class="d-flex">
       <v-row>
-
         <v-col class="flex-shrink-0 flex-grow-0">
           <navigation-drawer v-if="this.userLoggedIn"/>
         </v-col>
         <v-col>
           <router-view />
-
         </v-col>
       </v-row>
     </v-main>
@@ -35,6 +16,7 @@
 
 <script>
 import NavigationDrawer from "@/components/NavigationDrawer.vue";
+import AppBar from "@/components/AppBar.vue";
 import { mapGetters } from 'vuex';
 export default {
   name: "App",
@@ -43,6 +25,7 @@ export default {
   }),
   components: {
     NavigationDrawer,
+    AppBar,
   },
   methods: {
     logout() {
