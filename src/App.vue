@@ -21,17 +21,10 @@ import { mapGetters } from 'vuex';
 export default {
   name: "App",
   data: () => ({
-    drawer: false,
   }),
   components: {
     NavigationDrawer,
     AppBar,
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch("logout", null);
-      this.$router.push({ name: "login" });
-    },
   },
   computed: {
     ...mapGetters(["userLoggedIn"]),

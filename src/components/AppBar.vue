@@ -25,8 +25,6 @@
     <div class="name-avatar">
       <div class="savannah-nguyen">{{ user.firstName }} {{ user.lastName }}</div>
       <v-badge dot overlap bottom bordered color="var(--alert-succes-500-base, #00C781)">
-
-
         <v-menu bottom min-width="200px" rounded offset-y>
           <template v-slot:activator="{ on }">
             <v-btn icon x-large v-on="on">
@@ -46,7 +44,7 @@
                   {{ user.email }}
                 </p>
                 <v-divider class="my-3"></v-divider>
-                <v-btn depressed rounded text>
+                <v-btn depressed rounded text @click="$router.push('/profile')">
                   Edit Account
                 </v-btn>
                 <v-divider class="my-3"></v-divider>
@@ -57,7 +55,6 @@
             </v-list-item-content>
           </v-card>
         </v-menu>
-
       </v-badge>
     </div>
   </v-app-bar>
@@ -79,12 +76,6 @@ export default {
   data() {
     return {
       user: {},
-      items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
-      ],
     };
   },
   methods: {
