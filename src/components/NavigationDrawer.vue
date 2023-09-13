@@ -21,30 +21,30 @@
         <v-divider></v-divider>
 
         <v-list nav dense shaped>
-            <v-list-item link>
+            <v-list-item :to="{ name: 'home' }">
                 <v-list-item-icon>
-                    <v-icon>mdi-folder</v-icon>
+                    <v-img src="@/assets/svg/home-investment.svg"></v-img>
                 </v-list-item-icon>
-                <v-list-item-title>My Files</v-list-item-title>
+                <v-list-item-title>Home</v-list-item-title>
             </v-list-item>
             <v-list-item link>
                 <v-list-item-icon>
-                    <v-icon>mdi-account-multiple</v-icon>
+                    <v-img src="@/assets/svg/transactions.svg"></v-img>
                 </v-list-item-icon>
-                <v-list-item-title>Shared with me</v-list-item-title>
+                <v-list-item-title>Transactions</v-list-item-title>
             </v-list-item>
-            <v-list-item link>
+            <v-list-item :to="{ name: 'cards' }">
                 <v-list-item-icon>
-                    <v-icon>mdi-star</v-icon>
+                    <v-img src="@/assets/svg/credit-card(1).svg"></v-img>
                 </v-list-item-icon>
-                <v-list-item-title>Starred</v-list-item-title>
+                <v-list-item-title>Credit Cards</v-list-item-title>
             </v-list-item>
             <v-divider />
             <v-list-item link>
                 <v-list-item-icon>
-                    <v-icon>mdi-cog-outline</v-icon>
+                    <v-img src="@/assets/svg/forex-card.svg"></v-img>
                 </v-list-item-icon>
-                <v-list-item-title>Settings</v-list-item-title>
+                <v-list-item-title>Mileage</v-list-item-title>
             </v-list-item>
         </v-list>
 

@@ -17,7 +17,7 @@
 
     <div class="notification2">
       <v-badge dot color="var(--alert-danger-500-base, #FF4040)">
-        <v-icon>mdi-bell</v-icon>
+        <v-icon>mdi-bell-outline</v-icon>
 
       </v-badge>
     </div>

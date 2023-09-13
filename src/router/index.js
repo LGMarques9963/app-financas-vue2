@@ -38,7 +38,7 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Register.vue"),
+      import(/* webpackChunkName: "Signup" */ "../views/Register.vue"),
     meta: {
       public: true,
     },
@@ -47,7 +47,7 @@ const routes = [
     path: "/register",
     name: "register",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Register.vue"),
+      import(/* webpackChunkName: "Signup" */ "../views/Register.vue"),
     meta: {
       public: true,
     },
@@ -56,13 +56,19 @@ const routes = [
     path: "/home",
     name: "home",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/HomeView.vue"),
+      import(/* webpackChunkName: "Dashboard" */ "../views/HomeView.vue"),
   },
   {
     path: "/profile",
     name: "profile",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Profile.vue"),
+      import(/* webpackChunkName: "Profile" */ "../views/Profile.vue"),
+  },
+  {
+    path: "/cards",
+    name: "cards",
+    component: () =>
+      import(/* webpackChunkName: "Cards" */ "../views/CardView.vue"),
   },
 ];
 
@@ -77,11 +83,14 @@ router.beforeEach((to, from, next) => {
   if (authRequired) {
     http.post("/login.php", { token: token }).then((response) => {
       if (response.status == 200) {
+        //this.$store.dispatch("updateUserLoggedIn", true);
         return next();
       } else {
+        //this.$store.dispatch("updateUserLoggedIn", false);
         return next({ name: "login" });
       }
     }).catch((error) => {
+      //this.$store.dispatch("setUserLoggedIn", false);
       return next({ name: "login" });
     });
   }
